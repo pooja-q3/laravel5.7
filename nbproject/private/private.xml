@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Kernel.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/resources/views/includes/menu.blade.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Middleware/SecondMiddleware.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Controllers/ImplicitController.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Middleware/AgeMiddleware.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Controllers/TestMiddleController.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Controllers/MyController.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/app/Http/Middleware/FirstMiddleware.php</file>
+            <file>file:/C:/xampp/htdocs/sites/links/routes/api.php</file>
+        </group>
+    </open-files>
+</project-private>
