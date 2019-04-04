@@ -6,17 +6,70 @@ use App\Http\Repositories\DatabaseTransactionsRepository;
 use App\Http\Repositories\EloquentRepository;
 use App\Http\Repositories\RawRepository;
 use App\Http\Repositories\QueryBuilderRepository;
+use App\Http\Repositories\JoinsRepository;
+use App\Http\Repositories\WhereClauseRepository;
+use App\Http\Repositories\AdditionalWhereClauseRepository;
+use App\Http\Repositories\OrderingGroupingLimitOffsetRepository;
 
 class UseOfEloquentModelController extends Controller {
 
     public function index() {
-        //        $associations = $this->association();
+//        $associations = $this->association();
 //        $queryBuilder = $this->rawQueries();
-        $queryBuilder = $this->queryBuilder();
+//        $queryBuilder = $this->queryBuilder();
+//        $queryBuilder = $this->joinQueries();
+//        $queryBuilder = $this->whereClauseQueries();
+//        $queryBuilder = $this->additionalWhereClauseQueries();
+        $queryBuilder = $this->orderingGroupingLimitOffsetQueries();
         echo '<pre>';
         print_r($queryBuilder);
         echo '</pre>';
         die;
+    }
+
+    public function orderingGroupingLimitOffsetQueries() {
+//        return OrderingGroupingLimitOffsetRepository::sortDataWithorderByClause();
+//        return OrderingGroupingLimitOffsetRepository::getLatestRecords();
+//        return OrderingGroupingLimitOffsetRepository::getOldestRecords();
+//        return OrderingGroupingLimitOffsetRepository::inRandomOrderClause();
+//        return OrderingGroupingLimitOffsetRepository::groupByhavingClause();
+//        return OrderingGroupingLimitOffsetRepository::groupByMultiplehavingClause();
+//        return OrderingGroupingLimitOffsetRepository::skipTakeRecords();
+        return OrderingGroupingLimitOffsetRepository::offsetLimitRecords();
+    }
+
+    public function additionalWhereClauseQueries() {
+//        return AdditionalWhereClauseRepository::getDataBywhereBetweenClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereNotBetweenClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereInClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereNotInClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereNullClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereNotNullClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereDateClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereMonthClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereDayClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereYearClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereTimeClause();
+//        return AdditionalWhereClauseRepository::getDataBywhereColumnClause();
+        return AdditionalWhereClauseRepository::getDataByParameterGrouping();
+    }
+
+    private function whereClauseQueries() {
+//        return WhereClauseRepository::getDataByWhereClause();
+//        return WhereClauseRepository::getDataByWhereGTLTClause();
+//        return WhereClauseRepository::getDataByWhereLikeClause();
+//        return WhereClauseRepository::getDataByOrWhereClause();
+        return WhereClauseRepository::getDataByWhereArrayClause();
+    }
+
+    private function joinQueries() {
+//        return JoinsRepository::getDataByInnerJoinClause();
+//        return JoinsRepository::getDataByLeftJoinClause();
+//        return JoinsRepository::getDataByRightJoinClause();
+//        return JoinsRepository::getDataByCrossJoinClause();
+//        return JoinsRepository::getDataByAdvancedJoinClause();
+//        return JoinsRepository::getDataBySubQueryJoinsClause();
+        return JoinsRepository::getDataByUnionClause();
     }
 
     private function rawQueries() {
@@ -29,7 +82,7 @@ class UseOfEloquentModelController extends Controller {
 
     //Query Builder
     private function queryBuilder() {
-        //        $transactions = DatabaseTransactionsRepository::databaseTransactions();
+//        $transactions = DatabaseTransactionsRepository::databaseTransactions();
 //        DatabaseTransactionsRepository::manuallyUsingTransactions();  
 //        return QueryBuilderRepository::getAllRowsFromTable();
 //        return QueryBuilderRepository::getSingleRowFromTable();
@@ -41,7 +94,8 @@ class UseOfEloquentModelController extends Controller {
 //        return QueryBuilderRepository::getDistinctRecordsFromTable(); //--------issue
 //        return QueryBuilderRepository::addSelect();
 //        return QueryBuilderRepository::rawExpressions();// group using raw
-        return QueryBuilderRepository::rawMethods();
+//        return QueryBuilderRepository::rawMethods();
+        return QueryBuilderRepository::rawGroupHaving();
     }
 
 }

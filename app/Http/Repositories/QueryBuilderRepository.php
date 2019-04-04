@@ -80,8 +80,18 @@ class QueryBuilderRepository {
 
     public static function rawMethods() {
         return DB::table('laravel')
-                ->selectRaw('amount * ? as price_with_tax', [1.0825])
-                ->get();
+                        ->selectRaw('amount * ? as price, amount', [5])
+                        ->whereRaw('amount > ?', [90])
+                        ->get();
+    }
+
+    public static function rawGroupHaving() {
+        return DB::table('laravel')
+                        ->select('name', DB::raw('SUM(amount) as total_sales'))
+                        ->groupBy('name')
+                        ->havingRaw('SUM(amount) > ?', [90])
+                        ->orderByRaw('name ASC')
+                        ->get();
     }
 
 }

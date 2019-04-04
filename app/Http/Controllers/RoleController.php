@@ -27,7 +27,6 @@ class RoleController extends Controller {
                         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-
     public function create() {
 
         $permission = Permission::get();
@@ -78,7 +77,6 @@ class RoleController extends Controller {
         return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
-
     public function update(Request $request, $id) {
 
         $this->validate($request, [
@@ -93,11 +91,31 @@ class RoleController extends Controller {
         return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
 
-
     public function destroy($id) {
         DB::table("roles")->where('id', $id)->delete();
         return redirect()->route('roles.index')
                         ->with('success', 'Role deleted successfully');
+    }
+
+    public function ajaxShow($id) {
+        $role = Role::find($id);
+        $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")->where("role_has_permissions.role_id", $id)->get();
+        if (!empty($rolePermissions)) {
+            $html = '<div class="row"><div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group"><strong>Name :  </strong>' . $role->name . '</div></div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Permissions : </strong>';
+            if (!empty($rolePermissions)) {
+                foreach ($rolePermissions as $v) {
+                    $html .= '<label class="label label-success">  ' . $v->name . '  </label>&nbsp;';
+                }
+            }
+            $html .= '</div></div></div>';
+            return response()->json(['success' => 1, 'data' => $html]);
+        } else {
+            return response()->json(['success' => 0, 'error' => 'Error: there is some error']);
+        }
     }
 
 }

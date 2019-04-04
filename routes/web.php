@@ -143,6 +143,7 @@ Route::get('/blade', function() {
 });
 
 Route::delete('/user/ajax/{id}', 'UserController@destroyajax')->name('users.destroyajax');
+Route::get('/role/ajaxShow/{id}', 'RoleController@ajaxShow')->name('roles.ajaxShow');
 
 
 Route::get('/db', 'UseOfEloquentModelController@index');
