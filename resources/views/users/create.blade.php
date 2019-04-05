@@ -9,7 +9,7 @@
             <div class="pull-right"><a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a></div>
         </div>
     </div>
-    {!! Form::open(['url' => '/usersubmit']) !!}
+    {!! Form::open(['url' => '/usersubmit','enctype' => 'multipart/form-data']) !!}
     @csrf
 
     @if ($errors->any())  
@@ -89,6 +89,16 @@
             </div>
 
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                {!! Form::label('file', 'Image', ['class' => 'col-lg-2 control-label'] )  !!}
+                <div class="col-lg-10">
+                    {!! Form::file('image',['class'=>'form-control image','placeholder','upload image']);!!}
+                </div>
+            </div>
+        </div>
+
+
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <div class="form-group">
                 {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}

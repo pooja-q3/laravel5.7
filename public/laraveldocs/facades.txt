@@ -1,0 +1,28 @@
+Facades provide a "static" interface to classes that are available in the application's service container.
+ Laravel ships with many facades which provide access to almost all of Laravel's features
+
+All of Laravel's facades are defined in the Illuminate\Support\Facades namespace. So, we can easily access a facade like so:
+
+Facades Vs. Dependency Injection
+
+use Illuminate\Support\Facades\Cache;
+
+Route::get('/cache', function () {
+    return Cache::get('key');
+});
+
+We can write the following test to verify that the Cache::get method was called with the argument we expected:
+
+use Illuminate\Support\Facades\Cache;
+
+public function testBasicExample()
+{
+    Cache::shouldReceive('get')
+         ->with('key')
+         ->andReturn('value');
+
+    $this->visit('/cache')
+         ->see('value');
+}
+
+Facades Vs. Helper Functions

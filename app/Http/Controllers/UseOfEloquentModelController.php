@@ -10,10 +10,11 @@ use App\Http\Repositories\JoinsRepository;
 use App\Http\Repositories\WhereClauseRepository;
 use App\Http\Repositories\AdditionalWhereClauseRepository;
 use App\Http\Repositories\OrderingGroupingLimitOffsetRepository;
-
+use Request;
 class UseOfEloquentModelController extends Controller {
 
     public function index() {
+//        print_r(Request::segments());
 //        $associations = $this->association();
 //        $queryBuilder = $this->rawQueries();
 //        $queryBuilder = $this->queryBuilder();

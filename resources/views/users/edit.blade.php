@@ -21,7 +21,7 @@
         </ul>
     </div>
     @endif
-    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id],'enctype' => 'multipart/form-data']) !!}
     <!--{!! Form::model($user, ['route' =>['user.update',$user->id],'method'=>'put']) !!}-->
     @csrf
 
@@ -78,6 +78,15 @@
                 {!! Form::label('selectrole', 'Select Role', ['class' => 'col-lg-2 control-label'] )  !!}
                 <div class="col-lg-10">
                     {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                {!! Form::label('file', 'Image', ['class' => 'col-lg-2 control-label'] )  !!}
+                <div class="col-lg-10">
+                    {!! Form::file('image',['class'=>'form-control image','placeholder','upload image']);!!}
                 </div>
             </div>
         </div>

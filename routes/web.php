@@ -14,7 +14,7 @@
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    $links = \App\Link::latest()->paginate(10);
+    $links = \App\Models\Link::latest()->paginate(10);
 //echo '<pre>'; print_r($links);
     return view('welcome', ['links' => $links]);
 //    return view('welcome');
@@ -43,7 +43,7 @@ Route::post('/submit', function(Request $request) {
                         ->withInput()
                         ->withErrors($validator);
     }
-    $link = new \App\Link;
+    $link = new \App\Models\Link;
     $link->title = $request->title;
     $link->url = $request->url;
     $link->description = $request->description;

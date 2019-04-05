@@ -10,8 +10,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use App\User;
 use Spatie\Permission\Models\Role;
-use DB;
-
+use DB;use Mail;
 
 class UserController extends Controller {
 
@@ -57,7 +56,8 @@ class UserController extends Controller {
 //            'password' => 'required|min:5|confirmed', //confirm password column name should be password_confirmation
             'mobile_number' => 'required',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 //        $validator = Validator::make($request->all(), [
@@ -75,6 +75,15 @@ class UserController extends Controller {
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path() . '/uploads/';
+            $file->move($destinationPath, $fileName);
+            $input['image'] = $fileName;
+        }
+
         $request->replace($input);
         $user = User::create($request->all());
         $user->assignRole($request->input('roles'));
@@ -103,7 +112,8 @@ class UserController extends Controller {
             ],
 //            'email' => 'required|email|string|unique:users,email,' . $user->id,
             'password' => 'required|min:5|confirmed', //confirm password column name should be password_confirmation
-            'mobile_number' => 'required'
+            'mobile_number' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         Validator::make($request->all(), $rules, $messages)->validate();
 //        $input = $request->all();
@@ -117,8 +127,24 @@ class UserController extends Controller {
         } else {
             $input = array_except($input, array('password'));
         }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path() . '/uploads/';
+            $file->move($destinationPath, $fileName);
+            $input['image'] = $fileName;
+        }
 
         $user->update($input);
+
+//        $email = $request->email;
+//
+//        // Send email
+//        Mail::send('emails.email', ['email' => $email], function ($m) use ($user) {
+//            $m->from('hello@qtech.com', 'Q3');
+//            $m->to($user->email, $user->name)->subject('Update User');
+//        });
+
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
         $user->assignRole($request->input('roles'));
         return redirect('user')->with('success', 'User updated successfully.');

@@ -16,21 +16,22 @@
             <p>Name: {{$user->name}}</p> 
             <p>Email: {{$user->email}}</p> 
             <p>Mobile Number: {{$user->mobile_number}}</p>
+            <p>Image: <img src="{{ asset("uploads/".$user->image) }}" width="80" height="80"/></p>
             <p>
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <strong>Roles:</strong>
+                <strong>Roles:</strong>
 
-                    @if(!empty($user->getRoleNames()))
+                @if(!empty($user->getRoleNames()))
 
-                    @foreach($user->getRoleNames() as $v)
+                @foreach($user->getRoleNames() as $v)
 
-                    <label class="badge badge-success">{{ $v }}</label>
+                <label class="badge badge-success">{{ $v }}</label>
 
-                    @endforeach
+                @endforeach
 
-                    @endif
+                @endif
 
 
             </div>

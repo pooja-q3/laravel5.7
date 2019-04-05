@@ -1,0 +1,57 @@
+Laravel Create Migration is like version control for your database, allowing your team to easily modify and share the application’s database schema.
+
+Creating a migration will be the first step, and the Laravel Artisan command line tool can help us create that.
+
+php artisan make:migration create_links_table --create=links
+php artisan make:migration create_users_table --create=users
+php artisan make:migration add_votes_to_users_table --table=users
+
+Now, open the file this command created. It will be located at
+
+    database/migrations/{{datetime}}_create_links_table.php
+
+Inside the up method add our new columns:
+
+Schema::create('links', function (Blueprint $table) {
+      $table->increments('id');
+      $table->string('title');
+      $table->string('url')->unique();
+      $table->text('description');
+      $table->timestamps();
+});
+
+
+Save the file and run the migration:
+php artisan migrate
+
+Now we need to enter some data and Laravel provides two features that help with this. 
+The first is database seeds and model factories. But before we can use those we will need a model which can be generated like this:
+
+php artisan make:model Link
+
+Open the LinkFactory.php file and let’s add one for the links table:
+
+$factory->define(App\Link::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->name,
+        'url' => $faker->url,
+        'description' => $faker->paragraph,
+    ];
+});
+
+Next, create the link seeder, so we can easily add demo data to the table:
+
+php artisan make:seeder LinksTableSeeder
+
+public function run()
+{
+    factory(App\Link::class, 10)->create();
+}
+
+Open the DatabaseSeeder.php and add this to the run method:
+
+$this->call(LinksTableSeeder::class);
+
+You can now run the migrations and seeds to add data to the table automatically:
+
+php artisan migrate --seed

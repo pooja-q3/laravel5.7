@@ -1,0 +1,59 @@
+Running Raw SQL Queries
+
+$users = DB::select('select * from users where active = ?', [1]);
+
+The first argument passed to the select method is the raw SQL query, while the second argument is any parameter bindings that need to be bound to the query. 
+Typically, these are the values of the where clause constraints. Parameter binding provides protection against SQL injection.
+
+DB::select('select * from users where id = ?', [2]);
+
+//Instead of using ? to represent your parameter bindings, you may execute a query using named bindings:
+DB::select('select * from users where id = :id', ['id' => 1]);
+
+DB::insert('insert into users (name,email,password) values (?,?,?)', ['pooja', 'pooja1@gmail.com', '12345']);
+
+DB::update('update users set name = "Preet" where email = ?', ['pooja1@gmail.com']);
+
+DB::delete('delete from users where email = ?', ['pooja1@gmail.com']);
+
+DB::statement('drop database test34');
+
+Transactions
+DB::transaction(function () {
+                    DB::table('laravel')->insert(['name' => 'pooja', 'amount' => 100]);
+                    DB::table('posts')->update(['titte' => 'these are created by test users']);
+                }, 5);
+
+
+Listening For Query Events
+
+If you would like to receive each SQL query executed by your application, you may use the listen method. 
+This method is useful for logging queries or debugging. You may register your query listener in a service provider:
+
+Laravel Query Builder
+The Laravel query builder uses PDO parameter binding to protect your application against SQL injection attacks. There is no need to clean strings being passed as bindings.
+
+---------------------Laravel : Syntax error or access violation: 1055 Error-------------------------
+Short answer
+
+In config\database.php --> "mysql" array
+
+Set 'strict' => false to disable all.
+.... or
+
+You can leave 'strict' => true and add modes to "mysql" option in
+
+'mysql' => [
+       ...
+       ....
+       'strict' => true,
+       'modes' => [
+            //'ONLY_FULL_GROUP_BY', // Disable this to allow grouping by one column
+            'STRICT_TRANS_TABLES',
+            'NO_ZERO_IN_DATE',
+            'NO_ZERO_DATE',
+            'ERROR_FOR_DIVISION_BY_ZERO',
+            'NO_AUTO_CREATE_USER',
+            'NO_ENGINE_SUBSTITUTION'
+        ],
+ ]
